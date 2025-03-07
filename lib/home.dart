@@ -27,7 +27,8 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-
+  List<Map<String, dynamic>> filteredProducts = [];
+TextEditingController searchController = TextEditingController();
    String? userId; 
   void initState() {
   super.initState();
@@ -45,7 +46,6 @@ Future<void> deleteProduct(int pId) async {
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
            'Authorization': '$token',
-
         },
       );
       print("uuuuuuuuuuuuuuuuuuuuuuuuuu ${a.dproduct}$pId/");
@@ -108,8 +108,15 @@ Future<void> _initData() async {
   late List<bool> isFavorite;
 
 
+  void searchProducts(String query) {
+    setState(() {
+      filteredProducts = Products
+          .where((product) =>
+              product['name'].toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    });
+  }
 //product
-
   Future<void> fetchProducts(String? userId) async 
   {
 
@@ -133,7 +140,7 @@ Future<void> _initData() async {
         for (var productData in productsData) {
           // Fetch image URL
           String imageUrl =
-              "https://go-salon-cartoon-journals.trycloudflare.com/${productData['image1']}";
+              "https://describes-soldier-hourly-cartoon.trycloudflare.com/${productData['image1']}";
           // You might need to adjust the URL based on your API response structure
 
           productsList.add({
@@ -151,6 +158,7 @@ Future<void> _initData() async {
 
         setState(() {
           Products = productsList;
+          filteredProducts = productsList;
           isFavorite = favoritesList;
         });
       } else {
@@ -222,7 +230,7 @@ Future<void> _initData() async {
   api a = api();
   bool isSwitched = false;
   PageController _pageController = PageController();
-  var url = "https://go-salon-cartoon-journals.trycloudflare.com/categories/";
+  var url = "https://describes-soldier-hourly-cartoon.trycloudflare.com/categories/";
   late Timer _timer;
   List<String> bannerImageBase64Strings = [];
   String? _currentAddress;
@@ -394,6 +402,7 @@ Future<void> fetchCategories() async {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+               
               Container(
                 decoration: BoxDecoration(
                   boxShadow: [
@@ -421,6 +430,7 @@ Future<void> fetchCategories() async {
                           ),
                         ],
                       ),
+                      if(_currentAddress!=null)
                       Text(' $_currentAddress',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       Spacer(),
@@ -533,13 +543,33 @@ Future<void> fetchCategories() async {
                         },
                       ),
                     ),
-              Products != null
+                Padding(
+  padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+  child: TextField(
+    controller: searchController,
+    onChanged: searchProducts,
+    decoration: InputDecoration(
+      hintText: "Search for a product...",
+      prefixIcon: Icon(Icons.search, color: Colors.green),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20),
+        borderSide: BorderSide(color: Colors.grey), // Default border color
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20),
+        borderSide: BorderSide(color: Colors.green, width: 2), // Green border when focused
+      ),
+    ),
+  ),
+),
+
+              filteredProducts != null
                   ? ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: Products.length,
+                      itemCount: filteredProducts.length,
                       itemBuilder: (context, index) {
-                        var product = Products[index];
+                        var product = filteredProducts[index];
                         return Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           child: GestureDetector(

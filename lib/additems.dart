@@ -46,7 +46,7 @@ class _add_productState extends State<add_product> {
 
   Future<void> fetchCategories() async {
   try {
-    final response = await http.get(Uri.parse("https://go-salon-cartoon-journals.trycloudflare.com/categories/"));
+    final response = await http.get(Uri.parse("https://describes-soldier-hourly-cartoon.trycloudflare.com/categories/"));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(response.body);
@@ -107,7 +107,7 @@ String? selectedCategoryId;
       if (result != null) {
         setState(() {
           selectedImage2 = File(result.files.single.path!);
-          print("================$selectedImage");
+          print("=======$selectedImage");
         });
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Image2 selected successfully."),

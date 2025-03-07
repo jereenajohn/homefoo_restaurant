@@ -15,9 +15,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class update_product extends StatefulWidget {
-   final String? userId; 
+   
    var id;
-   update_product({Key? key, this.userId, required this.id}) : super(key: key);
+   update_product({Key? key,  required this.id}) : super(key: key);
 
   @override
   State<update_product> createState() => _update_productState();
@@ -29,10 +29,14 @@ class _update_productState extends State<update_product> {
     // TODO: implement initState
     super.initState();
     fetchCategories();
+    fetchProducts(widget.id);
+
   }
   String? token;
 // sharedpreference
-
+String? imageUrl1;
+String? imageUrl2;
+String? imageUrl3;
   Future<String?> getUserIdFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('userId');
@@ -44,10 +48,41 @@ class _update_productState extends State<update_product> {
 
     //categoreis dropdown
  List<Map<String, dynamic>> categories = [];
+Future<void> fetchProducts(var Id) async 
+  {
+print('${a.productidview}/${widget.id}');
+    final token = await gettokenFromPrefs();
+    print("8888888888888888888888888888888888'${a.productidview}${widget.id}/'");
+    try {
+     var response = await http.get(Uri.parse('${a.productidview}${widget.id}/'));
+        print("8888888888888888888888888888888888${response.body}");
+
+
+      if (response.statusCode == 200) {
+        final parsed = jsonDecode(response.body);
+        var productsData = parsed['data'];
+
+        name.text = productsData['name'];
+  price.text = productsData['price'].toString();
+  Offers.text = productsData['offer'].toString();
+  description.text = productsData['description'];
+  selectedCategoryId = productsData['category'].toString();
+       setState(() {
+    imageUrl1 = "${a.base}${productsData['image1']}";
+    imageUrl2 = "${a.base}${productsData['image2']}";
+    imageUrl3 = "${a.base}${productsData['image3']}";
+  });
+      } else {
+        throw Exception('Failed to  products');
+      }
+    } catch (error) {
+      print('Error fetching  products: $error');
+    }
+  }
 
   Future<void> fetchCategories() async {
   try {
-    final response = await http.get(Uri.parse("https://go-salon-cartoon-journals.trycloudflare.com/categories/"));
+    final response = await http.get(Uri.parse("https://describes-soldier-hourly-cartoon.trycloudflare.com/categories/"));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(response.body);
@@ -74,78 +109,81 @@ String? selectedCategoryId;
 
   File? selectedImage;
 
-    void imageSelect() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
-      );
-      if (result != null) {
-        setState(() {
-          selectedImage = File(result.files.single.path!);
-          print("================$selectedImage");
-        });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("image1 selected successfully."),
-          backgroundColor: Color.fromARGB(173, 120, 249, 126),
-        ));
-      }
-    } catch (e) {
+   void imageSelect() async {
+  try {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+    if (result != null) {
+      setState(() {
+        selectedImage = File(result.files.single.path!);
+        imageUrl1 = null; // Clear the URL if a new image is selected
+        print("================$selectedImage");
+      });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error while selecting the file."),
-        backgroundColor: Colors.red,
+        content: Text("Image1 selected successfully."),
+        backgroundColor: Color.fromARGB(173, 120, 249, 126),
       ));
     }
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Error while selecting the file."),
+      backgroundColor: Colors.red,
+    ));
   }
+}
 
 
    File? selectedImage2;
 
     void imageSelect2() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
-      );
-      if (result != null) {
-        setState(() {
-          selectedImage2 = File(result.files.single.path!);
-          print("================$selectedImage");
-        });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Image2 selected successfully."),
-          backgroundColor: Color.fromARGB(173, 120, 249, 126),
-        ));
-      }
-    } catch (e) {
+  try {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+    if (result != null) {
+      setState(() {
+        selectedImage2 = File(result.files.single.path!);
+        imageUrl2 = null; // Clear the URL if a new image is selected
+        print("================$selectedImage2");
+      });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error while selecting the file."),
-        backgroundColor: Colors.red,
+        content: Text("Image2 selected successfully."),
+        backgroundColor: Color.fromARGB(173, 120, 249, 126),
       ));
     }
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Error while selecting the file."),
+      backgroundColor: Colors.red,
+    ));
   }
+}
    File? selectedImage3;
 
     void imageSelect3() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
-      );
-      if (result != null) {
-        setState(() {
-          selectedImage3 = File(result.files.single.path!);
-          print("================$selectedImage");
-        });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Image3 selected successfully."),
-          backgroundColor: Color.fromARGB(173, 120, 249, 126),
-        ));
-      }
-    } catch (e) {
+  try {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+    if (result != null) {
+      setState(() {
+        selectedImage3 = File(result.files.single.path!);
+        imageUrl3 = null; // Clear the URL if a new image is selected
+        print("================$selectedImage3");
+      });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Error while selecting the file."),
-        backgroundColor: Colors.red,
+        content: Text("Image3 selected successfully."),
+        backgroundColor: Color.fromARGB(173, 120, 249, 126),
       ));
     }
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text("Error while selecting the file."),
+      backgroundColor: Colors.red,
+    ));
   }
+}
   TextEditingController name= TextEditingController();
   TextEditingController price= TextEditingController();
   TextEditingController Offers= TextEditingController();
@@ -207,10 +245,12 @@ void updateItem(
     if (response.statusCode == 200) {
       // Update successful
       ScaffoldMessenger.of(scaffoldContext).showSnackBar(
+        
         SnackBar(
           content: Text('Data Updated Successfully.'),
         ),
       );
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>home()));
       // Optionally, navigate to another page or update UI as needed
     } else {
       // Handle other status codes
@@ -412,6 +452,8 @@ void updateItem(
                    ),
                  ),
 
+                selectedImage != null ? Image.file(selectedImage!) : (imageUrl1 != null ? Image.network(imageUrl1!) : Container()),
+
                   SizedBox(height: 15,),
 
                  
@@ -446,6 +488,7 @@ void updateItem(
                      
                    ),
                  ),
+                 selectedImage2 != null ? Image.file(selectedImage2!) : (imageUrl2 != null ? Image.network(imageUrl2!) : Container()),
                   SizedBox(height: 15,),
                  
                   GestureDetector(
@@ -478,6 +521,8 @@ void updateItem(
                      
                    ),
                  ),
+
+                 selectedImage3 != null ? Image.file(selectedImage3!) : (imageUrl3 != null ? Image.network(imageUrl3!) : Container()),
 
                
                
