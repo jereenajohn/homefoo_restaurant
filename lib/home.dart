@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:homefoo_restaurant/additems.dart';
 import 'package:homefoo_restaurant/api.dart';
 import 'package:homefoo_restaurant/login.dart';
+import 'package:homefoo_restaurant/profile.dart';
 import 'package:homefoo_restaurant/update_item.dart';
 
 
@@ -140,7 +141,7 @@ Future<void> _initData() async {
         for (var productData in productsData) {
           // Fetch image URL
           String imageUrl =
-              "https://describes-soldier-hourly-cartoon.trycloudflare.com/${productData['image1']}";
+              "https://store-firewire-anticipated-actual.trycloudflare.com/${productData['image1']}";
           // You might need to adjust the URL based on your API response structure
 
           productsList.add({
@@ -230,7 +231,7 @@ Future<void> _initData() async {
   api a = api();
   bool isSwitched = false;
   PageController _pageController = PageController();
-  var url = "https://describes-soldier-hourly-cartoon.trycloudflare.com/categories/";
+  var url = "https://store-firewire-anticipated-actual.trycloudflare.com/categories/";
   late Timer _timer;
   List<String> bannerImageBase64Strings = [];
   String? _currentAddress;
@@ -365,11 +366,11 @@ Future<void> fetchCategories() async {
 
         for (var categoryData in categoriesData) {
           String imageUrl = "${a.base}${categoryData['image']}";
-          String base64Image = await convertImageToBase64(imageUrl);
+          // String base64Image = await convertImageToBase64(imageUrl);
           categoriesList.add({
             'id': categoryData['id'],
             'name': categoryData['name'],
-            'imageBase64': base64Image,
+            'imageBase64': imageUrl,
           });
         }
 
@@ -807,7 +808,7 @@ Future<void> fetchCategories() async {
                 icon: Icons.person,
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => login()));
+                      MaterialPageRoute(builder: (context) => UserProfile()));
                   // Navigate to Profile page
                 },
               ),

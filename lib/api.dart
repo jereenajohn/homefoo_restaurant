@@ -1,22 +1,22 @@
 class api{
 
-  var base="https://describes-soldier-hourly-cartoon.trycloudflare.com";
-  var restreg="https://describes-soldier-hourly-cartoon.trycloudflare.com/HOMFOO-restaurant/";
-  var login="https://describes-soldier-hourly-cartoon.trycloudflare.com/HOMFOO-restaurant/login/";
+  var base="https://store-firewire-anticipated-actual.trycloudflare.com";
+  var restreg="https://store-firewire-anticipated-actual.trycloudflare.com/HOMFOO-restaurant/";
+  var login="https://store-firewire-anticipated-actual.trycloudflare.com/HOMFOO-restaurant/login/";
 
   //category view
-  var cat="https://describes-soldier-hourly-cartoon.trycloudflare.com/categories/";
+  var cat="https://store-firewire-anticipated-actual.trycloudflare.com/categories/";
 
   //add product
-  var product="https://describes-soldier-hourly-cartoon.trycloudflare.com/HOMFOO-restaurant/HOMFOO-add-products/";
+  var product="https://store-firewire-anticipated-actual.trycloudflare.com/HOMFOO-restaurant/HOMFOO-add-products/";
 
   //products view
-  var productview="https://describes-soldier-hourly-cartoon.trycloudflare.com/HOMFOO-restaurant/HOMFOO-shop-products/";
-  var productidview="https://describes-soldier-hourly-cartoon.trycloudflare.com/HOMFOO-restaurant/HOMFOO-shop-product-update/";
+  var productview="https://store-firewire-anticipated-actual.trycloudflare.com/HOMFOO-restaurant/HOMFOO-shop-products/";
+  var productidview="https://store-firewire-anticipated-actual.trycloudflare.com/HOMFOO-restaurant/HOMFOO-shop-product-update/";
 
   //product update
-  var uproduct="https://describes-soldier-hourly-cartoon.trycloudflare.com/HOMFOO-restaurant/HOMFOO-shop-product-update/";
+  var uproduct="https://store-firewire-anticipated-actual.trycloudflare.com/HOMFOO-restaurant/HOMFOO-shop-product-update/";
   //product update
-  var dproduct="https://describes-soldier-hourly-cartoon.trycloudflare.com/HOMFOO-restaurant/HOMFOO-shop-product-delete/";
+  var dproduct="https://store-firewire-anticipated-actual.trycloudflare.com/HOMFOO-restaurant/HOMFOO-shop-product-delete/";
 
 }

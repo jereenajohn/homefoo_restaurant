@@ -82,7 +82,7 @@ print('${a.productidview}/${widget.id}');
 
   Future<void> fetchCategories() async {
   try {
-    final response = await http.get(Uri.parse("https://describes-soldier-hourly-cartoon.trycloudflare.com/categories/"));
+    final response = await http.get(Uri.parse("https://store-firewire-anticipated-actual.trycloudflare.com/categories/"));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(response.body);
