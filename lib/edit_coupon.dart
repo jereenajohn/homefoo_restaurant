@@ -30,7 +30,7 @@ class _UpdateCouponsState extends State<UpdateCoupons> {
     super.initState();
     getcoupon();
 
-    print("wwwwwwwwwww=======================${widget.id}");
+    print("wwwwwwwwwww=========${widget.id}");
   }
 
 
